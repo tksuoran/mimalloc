@@ -57,6 +57,15 @@ include(GNUInstallDirs)
 include("cmake/mimalloc-config-version.cmake")
 
 set(mi_sources
+    include/mimalloc/atomic.h
+    include/mimalloc/internal.h
+    include/mimalloc/prim.h
+    include/mimalloc/track.h
+    include/mimalloc/types.h
+    include/mimalloc-new-delete.h
+    include/mimalloc-override.h
+    include/mimalloc-stats.h
+    include/mimalloc.h
     src/alloc.c
     src/alloc-aligned.c
     src/alloc-posix.c
