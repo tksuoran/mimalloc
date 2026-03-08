@@ -634,6 +634,12 @@ use a tool like [TraceControl] that is specialized for analyzing mimalloc traces
 [ETW]: https://learn.microsoft.com/en-us/windows-hardware/test/wpt/event-tracing-for-windows
 [TraceControl]: https://github.com/xinglonghe/TraceControl
 
+## Tracy
+
+To build with Tracy profiler support, use the `-DMI_TRACK_TRACY=ON` cmake option.
+
+[Tracy]: https://github.com/wolfpld/tracy
+
 
 # Performance
 

@@ -29,6 +29,7 @@ option(MI_DEBUG_UBSAN       "Build with undefined-behavior sanitizer (needs clan
 option(MI_TRACK_VALGRIND    "Compile with Valgrind support (adds a small overhead)" OFF)
 option(MI_TRACK_ASAN        "Compile with address sanitizer support (adds a small overhead)" OFF)
 option(MI_TRACK_ETW         "Compile with Windows event tracing (ETW) support (adds a small overhead)" OFF)
+option(MI_TRACK_TRACY       "Compile with Tracy profiler (adds a small overhead)" OFF)
 
 option(MI_BUILD_SHARED      "Build shared library" ON)
 option(MI_BUILD_STATIC      "Build static library" ON)
@@ -270,6 +271,17 @@ if(MI_TRACK_ETW)
   if(MI_TRACK_ETW)
     message(STATUS "Compile with Windows event tracing support (MI_TRACK_ETW=ON)")
     list(APPEND mi_defines MI_TRACK_ETW=1)
+  endif()
+endif()
+
+if(MI_TRACK_TRACY)
+  if(NOT TARGET Tracy::TracyClient)
+    set(MI_TRACK_TRACY OFF)
+    message(WARNING "Tracy::TracyClient cmake target not found - cannot enable Tracy profiler support (MI_TRACK_TRACY=OFF)")
+  endif()
+  if(MI_TRACK_TRACY)
+    message(STATUS "Compile with Tracy profiler support (MI_TRACK_TRACY=ON)")
+    list(APPEND mi_defines MI_TRACK_TRACY=1)
   endif()
 endif()
 
@@ -517,6 +529,9 @@ else()
   endif()
 endif()
 
+if(MI_TRACK_TRACY)
+    list(APPEND mi_libraries Tracy::TracyClient)
+endif()
 
 # -----------------------------------------------------------------------------
 # Install and output names

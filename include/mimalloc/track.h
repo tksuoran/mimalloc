@@ -88,6 +88,18 @@ defined, undefined, or not accessible at all:
 #define mi_track_malloc_size(p,reqsize,size,zero) EventWriteETW_MI_ALLOC((UINT64)(p), size)
 #define mi_track_free_size(p,size)                EventWriteETW_MI_FREE((UINT64)(p), size)
 
+#elif MI_TRACK_TRACY
+// Tracy profile
+
+#define MI_TRACK_ENABLED      1
+#define MI_TRACK_HEAP_DESTROY 1
+#define MI_TRACK_TOOL         "Tracy"
+
+#include <tracy/Tracy.hpp>
+
+#define mi_track_malloc_size(p,reqsize,size,zero) TracyAlloc(p, size)
+#define mi_track_free_size(p,size)                TracyFree(p)
+
 #else
 // no tracking
 
