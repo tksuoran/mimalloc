@@ -97,8 +97,8 @@ defined, undefined, or not accessible at all:
 
 #include <tracy/Tracy.hpp>
 
-#define mi_track_malloc_size(p,reqsize,size,zero) TracyAlloc(p, size)
-#define mi_track_free_size(p,size)                TracyFree(p)
+#define mi_track_malloc_size(p,reqsize,size,zero) TracyAllocS(p, size, 32)
+#define mi_track_free_size(p,size)                TracyFreeS(p, 32)
 
 #else
 // no tracking
